@@ -8,7 +8,7 @@
     [app.session :as session]
     [app.tutorial :refer [tutorial]]
     [app.repl.view :refer [repl-view]]
-   [com.widdindustries.tempo]))
+   [com.widdindustries.chronos]))
 
 ;; Collection of map with the REPL command history.
 (defonce repl-history
@@ -152,7 +152,7 @@
 
 ;; Add REPL functions like `doc`
 (sci/eval-string "(require '[clojure.repl :refer :all]
-                           '[com.widdindustries.tempo :as t] )
+                           '[com.widdindustries.chronos :as c] )
                            (def clock (t/clock-system-default-zone))")
 
 ;; -------------------------

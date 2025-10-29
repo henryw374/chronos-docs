@@ -3,7 +3,7 @@
   (:require
    [sci.core :as sci]
    [app.error :as error]
-   [com.widdindustries.tempo]))
+   [com.widdindustries.chronos]))
 
 (clojure.core/defmacro ^:private time
   "Evaluates expr and prints the time it took. Returns the value of expr."
@@ -20,11 +20,11 @@
 
 
 (def ^:private namespaces
-  (let [ens (sci/create-ns 'com.widdindustries.tempo)
-        publics (ns-publics 'com.widdindustries.tempo)
+  (let [ens (sci/create-ns 'com.widdindustries.chronos)
+        publics (ns-publics 'com.widdindustries.chronos)
         sci-ns (update-vals publics #(sci/copy-var* % ens))
         ]
-    {'com.widdindustries.tempo sci-ns
+    {'com.widdindustries.chronos sci-ns
      'clojure.core
      {'time        (sci/copy-var time clj-ns)
       'system-time (sci/copy-var system-time clj-ns)}}))

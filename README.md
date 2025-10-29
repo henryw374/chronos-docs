@@ -1,10 +1,10 @@
-# Tutorial For Tempo 
+# Tutorial For Chronos 
 
-Learn [Tempo](https://github.com/henryw374/tempo) [live in a REPL](https://widdindustries.com/tempo-docs/public/) 
+Learn [Chronos](https://github.com/henryw374/chronos) [live in a REPL](https://widdindustries.com/chronos-docs/public/) 
 
 # Dev
 
-Don't clone this directly, instead clone [Tempo](https://github.com/henryw374/tempo) recursively to get this repo included (which makes the relative paths in deps.edn work)
+Don't clone this directly, instead clone [Chronos](https://github.com/henryw374/chronos) recursively to get this repo included (which makes the relative paths in deps.edn work)
 
 see comment block in dev.clj for dev+release builds
 

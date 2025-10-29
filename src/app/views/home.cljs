@@ -144,7 +144,7 @@
      (when @menu-open?
        [:div#sidebar-wrapper.border-end.bg-white
         [:div.sidebar-heading.border-bottom.bg-light
-         [:span "Tempo docs"]]
+         [:span "Chronos docs"]]
         [:div.list-group.list-group-flush
          (->> tutorial
               (map (fn [{:keys [title index]}]

@@ -27,9 +27,9 @@
                   "text-slate-700"
                   "dark:text-white"
                   "tracking-tighter"]}
-     "Try Tempo"]]
+     "Try Chronos"]]
    [:div {:class ["flex" "flex-row" "items-center" "justify-around"]}
-    [:a {:href "https://github.com/henryw374/tempo" :target "_blank"}
+    [:a {:href "https://github.com/henryw374/chronos" :target "_blank"}
      [:svg {:class ["text-gray-500"
                     "dark:text-white"
                     "text-opacity-50"
