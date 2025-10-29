@@ -153,7 +153,7 @@
 ;; Add REPL functions like `doc`
 (sci/eval-string "(require '[clojure.repl :refer :all]
                            '[com.widdindustries.chronos :as c] )
-                           (def clock (t/clock-system-default-zone))")
+                           (def clock (c/clock-system-default-zone))")
 
 ;; -------------------------
 ;; REPL element

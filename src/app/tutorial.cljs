@@ -11,7 +11,7 @@ To find out the rationale for this library and how to install it, visit the <a h
 This is an interactive tutorial for Chronos. Jump to a section using the left-side nav or see the <a href=\"#/all\">Full listing</a> to search in page for anything in particular.
  <span id=\"location-of-editor\">Here on the right</span>
 you have a **REPL**.
-Functions from the main chronos ns are included under the alias 't'
+Functions from the main chronos ns are included under the alias 'c'
 
 For example, click on this expression: `(c/date-parse \"2020-02-02\")` to auto insert, or type into the REPL directly. 
 
