@@ -22,28 +22,30 @@ You can type `(help)` for more commands.
     :content "
 <img src=\"https://tc39.es/proposal-temporal/docs/object-model.svg\"/>
 
-The above graph shows the entities in 'Temporal'. If you know 'java.time' and you squint a bit, it will look familiar to
-you. The Chronos API aims to find common ground between Temporal and java.time - sufficient to satisfy the majority of
+The above graph shows the entities in 'Temporal'. If you know 'java.time', it should look familiar to
+you. Clearly there are differences (see <a href=\"https://github.com/henryw374/chronos\">README</a> for details), but there 
+there is a lot the same. The Chronos API leverages the common ground between Temporal and java.time - sufficient to satisfy the majority of
 use cases.
 
-Regarding names, the java.time 'Local' prefix and the Temporal 'Plain' prefix have been removed, 
+This tutorial uses 'temporal' to collectively refer all the entities in the graph except 'Duration', which is referred to as a 'temporal-amount'. This is the same as the java.time documentation.
+
+Regarding names, the java.time 'Local' prefix and the equivalent Temporal 'Plain' prefix have been removed, 
 so e.g. PlainDate/LocalDate are just 'date'
 
 as in `(c/date? (c/date-parse \"2020-02-02\"))`.
 
-Multi-part entities, such 'datetime' or 'yearmonth' have no separator in the name and all names are lower case.
+Multi-word entities, such 'datetime' or 'yearmonth' have no separator in the name and all names are lower case.
 
 ZonedDateTime is called 'zdt' to keep it short. 
     
 js/Date and java.util.Date are called 'legacydate'
 
-Otherwise, the naming of entities in 'Chronos' should be self-explanatory.
     "
     ;:test (constantly true)
     }
    {:title "Construction and Access"
     :content "
-The naming of construction and access functions is based on mnemonics: The first word in the function is the entity name of the subject of the operation and
+The naming of construction and access functions follows this pattern: The first word in the function is the entity name of the subject of the operation and
 the second word (after the hyphen) is the operation, so IOW <i>c/entity-operation</i>
 
 `(c/date-parse \"2020-02-02\")` ;iso strings only
@@ -141,6 +143,8 @@ Combining the concept of unit and field is a simplification.
 
 In some cases it may be an over-simplification, for example `c/days-property` corresponds to the 'day of month' field, 
 so if 'day of year' was required a new property would have to be created in user space. 
+    
+Subsecond    
     "}
    {:title "Manipulation" 
     :content "
