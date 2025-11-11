@@ -21,6 +21,10 @@
                                   })
         (dissoc :devtools))))
 
+(defn build-docs [_]
+  (app-release)
+  (System/exit 0))
+
 (comment
   (do
     (util/stop-server)
@@ -29,7 +33,7 @@
     (util/watch (app-config)))
   (util/repl)
   :cljs/quit
-  (app-release)
+  (app-release nil)
   (util/build-report (app-config) "build-report.html")
 
   )
