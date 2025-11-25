@@ -93,6 +93,18 @@ the target type. For example:
 `(c/epochmilli->instant 123)`
 
 `(c/legacydate->instant (js/Date.))`
+
+Note that for sub-second parts, chronos uses the Temporal approach, which differs from Java as
+the following Clojure snippet shows:
+
+```
+  (let [dt (c/datetime-parse \"3030-03-03T11:22:33.123456789\")]
+    {:milli  (c/datetime->millisecond dt) ; 123
+     :micro  (c/datetime->microsecond dt) ; 456
+     :nano  (c/datetime->nanosecond dt) ; 789
+     :java-subsecond-nano-total (java.time.LocalDateTime/.getNano dt) ; 123456789
+     })
+```
     "}
    ;; Clocks
    {:title "Clocks and 'Now'"
@@ -103,7 +115,8 @@ In both java.time and Temporal it is possible to use the ambient Clock by callin
 for example `(js/Temporal.Now.instant)`, but this impedes testing so has no equivalent in Chronos. 
 As the Javadoc of java.time.InstantSource says 'Best practice for applications is to pass a Clock into any method that requires the current instant.'
 
-For example, to create a Clock that will return the current vm/browser's time in the current timezone: \n  `(def clock (c/clock-system-default-zone))` 
+For example, to create a Clock that will return the current vm/browser's time in the current timezone: 
+  `(def clock (c/clock-system-default-zone))` 
 
 To use a clock, Chronos makes a naming analogy with clojure's atoms, so functions to get the current value 
 from a clock are named <i>subject</i>-deref,
@@ -144,7 +157,9 @@ Combining the concept of unit and field is a simplification.
 In some cases it may be an over-simplification, for example `c/days-property` corresponds to the 'day of month' field, 
 so if 'day of year' was required a new property would have to be created in user space. 
     
-Subsecond    
+Properties can also be used to access fields. For example
+
+`(c/get-field (c/date-parse \"1111-01-02\") c/days-property)`
     "}
    {:title "Manipulation" 
     :content "
