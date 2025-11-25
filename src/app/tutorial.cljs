@@ -23,7 +23,7 @@ You can type `(help)` for more commands.
 <img src=\"https://tc39.es/proposal-temporal/docs/object-model.svg\"/>
 
 The above graph shows the entities in 'Temporal'. If you know 'java.time', it should look familiar to
-you. Clearly there are differences (see <a href=\"https://github.com/henryw374/chronos\">README</a> for details), but there 
+you. Clearly there are differences (see <a href=\"https://github.com/henryw374/chronos\">README</a> for details), but 
 there is a lot the same. The Chronos API leverages the common ground between Temporal and java.time - sufficient to satisfy the majority of
 use cases.
 
@@ -97,19 +97,19 @@ the target type. For example:
    ;; Clocks
    {:title "Clocks and 'Now'"
     :content
-    "> Best practice for applications is to pass a Clock into any method that requires the current instant. 
-- from the Javadoc of java.time.InstantSource
+    "> 
         
 In both java.time and Temporal it is possible to use the ambient Clock by calling a zero-arity 'now' function, 
-for example `(js/Temporal.Now.instant)`, but this impedes testing so has no equivalent in Chronos.
+for example `(js/Temporal.Now.instant)`, but this impedes testing so has no equivalent in Chronos. 
+As the Javadoc of java.time.InstantSource says 'Best practice for applications is to pass a Clock into any method that requires the current instant.'
 
-Naming-wise, Chronos makes an analogy with clojure's atoms, so functions to get the current value 
+For example, to create a Clock that will return the current vm/browser's time in the current timezone: \n  `(def clock (c/clock-system-default-zone))` 
+
+To use a clock, Chronos makes a naming analogy with clojure's atoms, so functions to get the current value 
 from a clock are named <i>subject</i>-deref,
 for example `(c/date-deref clock)` or `(c/timezone-deref clock)`
 
-
-Create a Clock that is will return the current browser's time in the current timezone with 
-  `(def clock (c/clock-system-default-zone))` or ...
+Here are examples of more specialized clocks:
   
 A ticking clock in specified place
 `(def clock (c/clock-with-timezone \"Pacific/Honolulu\"))`
