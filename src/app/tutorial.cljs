@@ -3,7 +3,7 @@
 (def tutorial*
   "Collection of map steps."
   [{:title "Introduction to Chronos"
-    :content "Chronos is a zero-dependency Clojure(Script) API to <a href=\"https://docs.oracle.com/javase/tutorial/datetime/iso/overview.html\">java.time</a> 
+    :content "Chronos is a dependency-free Clojure(Script) API to <a href=\"https://docs.oracle.com/javase/tutorial/datetime/iso/overview.html\">java.time</a> 
     on the JVM and <a href=\"https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Temporal\">Temporal</a> on JS runtimes (such as this browser)
     
 To find out the rationale for this library and how to install it, visit the <a href=\"https://github.com/henryw374/chronos\">README</a>    
@@ -97,14 +97,14 @@ the target type. For example:
 Note that for sub-second parts, chronos uses the Temporal approach, which differs from Java as
 the following Clojure snippet shows:
 
-```
-  (let [dt (c/datetime-parse \"3030-03-03T11:22:33.123456789\")]
-    {:milli  (c/datetime->millisecond dt) ; 123
-     :micro  (c/datetime->microsecond dt) ; 456
-     :nano  (c/datetime->nanosecond dt) ; 789
-     :java-subsecond-nano-total (java.time.LocalDateTime/.getNano dt) ; 123456789
-     })
-```
+`
+(let [dt (c/time-parse \"11:22:33.123456789\")]
+  {:milli  (c/time->millisecond dt) ; 123
+   :micro  (c/time->microsecond dt) ; 456
+   :nano  (c/time->nanosecond dt) ; 789
+   :java-subsecond-nano-total #?(:cljs \"N/A\" :clj (java.time.LocalTime/.getNano dt)) ; 123456789
+   })
+`
     "}
    ;; Clocks
    {:title "Clocks and 'Now'"
@@ -157,13 +157,16 @@ Combining the concept of unit and field is a simplification.
 In some cases it may be an over-simplification, for example `c/days-property` corresponds to the 'day of month' field, 
 so if 'day of year' was required a new property would have to be created in user space. 
     
-Properties can also be used to access fields. For example
+Another way to access fields is via properties. For example
 
 `(c/get-field (c/date-parse \"1111-01-02\") c/days-property)`
+
+For general usage, 'c/subject->target' functions should be used though, because the function
+will only exist if that conversion can be made.
     "}
    {:title "Manipulation" 
     :content "
-Manipulation: aka construction a new temporal from one of the same type
+Manipulation: aka construction of a new temporal from one of the same type
 
 move date forward 3 days
 
@@ -291,6 +294,33 @@ can involve hefty payloads if they contain localization data.
 Alternatively, consider a regex to get the constituent parts of the string, then using those in Chronos's '-from' functions.
 
 "}
+   {:title "Instants" :content "
+   Instants are a common source of confusion apparently. Consider:
+   
+   `(c/instant-parse \"3030-03-03T01:02:03.0Z\")`
+   
+   The string pattern to parse an Instant has years, months etc and a UTC offset. Calling 'str'
+   on an Instant will result in the same pattern. 
+   
+   This seems to suggest that Instant objects might work with years, months, zone etc.
+   
+   However, Instant objects are not 'calendar-aware'. When parsing and printing to string, 
+   a default calendar is used, but this is the only time that happens.
+   
+   Using a formatter to render an Instant to string is one situation where this would come up.
+   Other are variations on something like:
+   
+   `(-> (c/instant-parse \"3030-03-03T01:02:03.0Z\") (c/get-field c/seconds-property))`
+   
+   Since there is no seconds field, this returns nil. Doing the equivalent on the jvm throws an
+  exception. 
+  
+   If you want to work with calendar elements, converting an instant to a zdt in UTC is an option, or for
+   formatting, on the JVM you can add a zone to the formatter.
+   
+   To see what you can get from an instant in chronos, typing 'c/instant->' in your editor will show the available functions.  
+   
+   "}
   
   ])
 
